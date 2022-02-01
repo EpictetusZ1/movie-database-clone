@@ -1,12 +1,16 @@
 import React from 'react';
+import { Provider } from "react-redux";
+import store from "./redux/store";
+import Main from "./components/Main/Main";
 
 const App = () => {
-  return (
-    <div className="App">
-      <p>Learn React</p>
-
-    </div>
-  );
+    return (
+        <Provider store={store} >
+            <div>
+                <Main />
+            </div>
+        </Provider>
+    );
 }
 
 export default App;
