@@ -1,51 +1,62 @@
-import React from 'react';
+// React & Components
+import React, {useEffect, useState} from 'react';
+import MoviePreview from "../MoviePreview/MoviePreview";
+
 import * as S from "./Main.styles"
-import MoviePage from "../MoviePage/MoviePage";
-import {useDispatch} from "react-redux";
-import {setMovies} from "../../redux";
+import {useDispatch, useSelector} from "react-redux";
+import iconSmall from "../../assets/svgs/image-icon-small.svg"
+import { IMoviePageState } from "../../types/types";
 
 const Main: React.FC = () => {
-    //TODO: Render a list of popular movies, and put their Movie ID's in state so onClick movie preview can fetch the associated data
 
     const dispatchMovie = useDispatch()
+    const [previewData, setPreviewData] = useState([])
 
     const heroMovie = {
-        movieID: 370172
+        movieID: 370172,
+        movieTitle: "No-Time-To-Die"
     }
 
     const getMovieData = async () => {
-        const query: string = `/movie/${heroMovie.movieID}`
-        // const moviesPopular = "/moviePage/popular"
-
-        const url: string = `https://api.themoviedb.org/3${query}?api_key=${process.env.REACT_APP_MY_API_KEY}`
+        const popular: string = "/movie/popular"
+        const url: string = `https://api.themoviedb.org/3${popular}?api_key=${process.env.REACT_APP_MY_API_KEY}`
         const response: Response = await fetch(url)
 
         if (!response.ok) {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
 
+        //TODO: Separate first 5 results into Hero slider
+        //TODO: Return 'Error' Movie object so <MoviePreview /> still renders
+
         return response.json()
     }
 
+    useEffect(() => {
+        getMovieData()
+            .then((r) => {
+                setPreviewData(r.results)
+            })
+            .catch((e) => {
+                console.log(e)
+            })
+    }, [])
+
+    const movieData = useSelector((state: IMoviePageState) => state.movieData)
 
     return (
         <S.Main>
-            <div className={"preview"}>
-                Movie Preview
-                <button
-                    onClick={() => {
-                        getMovieData()
-                            .then( (r) => dispatchMovie(setMovies(r)) )
-                            .catch( (e) => {
-                                console.log(e)
-                            })
-                    }}
-                >
-                    Show Movie</button>
+            <nav>
+                <div className="navInner">
+                    <img src={iconSmall} alt="Movie Database"/>
+                    Menu
+                </div>
+            </nav>
+            <h3>Featured today</h3>
 
+            <div className={"previewGrid"}>
+                {previewData.map( (item) => <MoviePreview movieInfo={item} /> )}
             </div>
-            <MoviePage />
-
         </S.Main>
     );
 };

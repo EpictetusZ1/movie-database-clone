@@ -1,14 +1,12 @@
 import React from 'react';
 import { Provider } from "react-redux";
 import store from "./redux/store";
-import Main from "./components/Main/Main";
+import RouteSwitch from "./Router/RouteSwitch";
 
 const App = () => {
     return (
         <Provider store={store} >
-            <div>
-                <Main />
-            </div>
+            <RouteSwitch />
         </Provider>
     );
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { GlobalStyle } from "./styles/GlobalStyle";
-import RouteSwitch from "./RouteSwitch";
+import App from "./App";
 
 ReactDOM.render(
     <React.StrictMode>
         <GlobalStyle />
-        <RouteSwitch />
+        <App />
     </React.StrictMode>,
     document.getElementById('root')
 );

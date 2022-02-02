@@ -9,5 +9,14 @@ export const GlobalStyle = createGlobalStyle`
     font-family: Roboto, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    vertical-align: baseline;
+    
+    h1 {
+      color: #FFF;
+    }
+    
+    p {
+      margin: 0;
+    }
   }
 `
