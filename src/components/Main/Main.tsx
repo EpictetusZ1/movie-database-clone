@@ -5,12 +5,13 @@ import MoviePreview from "../MoviePreview/MoviePreview";
 import * as S from "./Main.styles"
 import {useDispatch, useSelector} from "react-redux";
 import iconSmall from "../../assets/svgs/image-icon-small.svg"
-import { IMoviePageState } from "../../types/types";
+import {IMoviePageState, IPopularResult} from "../../types/types";
+import Carousel from "../Carousel/Carousel";
 
 const Main: React.FC = () => {
 
     const dispatchMovie = useDispatch()
-    const [previewData, setPreviewData] = useState([])
+    const [previewData, setPreviewData] = useState<IPopularResult[]>([])
 
     const heroMovie = {
         movieID: 370172,
@@ -26,8 +27,7 @@ const Main: React.FC = () => {
             throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        //TODO: Separate first 5 results into Hero slider
-        //TODO: Return 'Error' Movie object so <MoviePreview /> still renders
+
 
         return response.json()
     }
@@ -54,9 +54,11 @@ const Main: React.FC = () => {
             </nav>
             <h3>Featured today</h3>
 
-            <div className={"previewGrid"}>
-                {previewData.map( (item) => <MoviePreview movieInfo={item} /> )}
-            </div>
+            <Carousel>
+                {previewData.map( (item) => <MoviePreview key={item.id} movieInfo={item} /> )}
+            </Carousel>
+
+
         </S.Main>
     );
 };

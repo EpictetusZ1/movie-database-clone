@@ -1,4 +1,4 @@
-import {IMoviePageState, IMoviePageAction} from "../../types";
+import {IMoviePageState, IMoviePageAction} from "../../types/types";
 import { SET_MOVIES } from "./moviePageTypes";
 
 const initialState = {

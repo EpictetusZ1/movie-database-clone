@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import * as S from "./MoviePage.styles"
-import { IMoviePageState } from "../../types";
+import { IMoviePageState } from "../../types/types";
 import {useSelector, useDispatch} from "react-redux";
 
 const MoviePage: React.FC = () => {
@@ -15,10 +15,10 @@ const MoviePage: React.FC = () => {
         }
     }
 
-    const [movie, setMovie] = useState(movieData)
 
     return (
         <S.MoviePage>
+            <h1>Movie page</h1>
 
         </S.MoviePage>
     );
