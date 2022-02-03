@@ -1,11 +1,11 @@
 // React & Components
 import React, {useEffect, useState} from 'react';
+import Carousel from "../Carousel/Carousel";
 
 import * as S from "./Main.styles"
 import {useDispatch, useSelector} from "react-redux";
 import iconSmall from "../../assets/svgs/image-icon-small.svg"
 import {IMoviePageState, IPopularResult} from "../../types/types";
-import Carousel from "../Carousel/Carousel";
 
 const Main: React.FC = () => {
 
@@ -22,11 +22,7 @@ const Main: React.FC = () => {
         const url: string = `https://api.themoviedb.org/3${popular}?api_key=${process.env.REACT_APP_MY_API_KEY}`
         const response: Response = await fetch(url)
 
-        if (!response.ok) {
-            throw new Error(`HTTP error! status: ${response.status}`)
-        }
-
-
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
         return response.json()
     }

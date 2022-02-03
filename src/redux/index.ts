@@ -1,1 +1,1 @@
-export { setMovies } from "./moviePage/moviePageActions"
+export { setMovies, setCurrMovie } from "./moviePage/moviePageActions"

@@ -8,6 +8,8 @@ import addIcon from "../../assets/svgs/addIcon.svg"
 import addIconBlue from "../../assets/svgs/addIconBlue.svg"
 import trailerIcon from "../../assets/svgs/trailerIcon.svg"
 import infoIcon from "../../assets/svgs/infoIcon.svg"
+import {useDispatch} from "react-redux";
+import {setCurrMovie} from "../../redux";
 
 const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
 
@@ -21,6 +23,8 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
     const data = movieInfo
     const cleanedTitle = cleanTitle(movieInfo.title)
 
+    const dispatchMovie = useDispatch()
+
     return (
         <S.PreviewWrapper>
             <div className="watchListAdd">
@@ -30,7 +34,10 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
                 </div>
 
             </div>
-            <S.PreviewImage>
+            <S.PreviewImage
+                onClick={() => dispatchMovie(setCurrMovie(movieInfo.id))}
+            >
+
                 <Link to={`movie/${cleanedTitle}`}>
                     <img src={image} alt={movieInfo.title}/>
                 </Link>
