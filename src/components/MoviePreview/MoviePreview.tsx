@@ -21,7 +21,6 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
     const data = movieInfo
     const cleanedTitle = cleanTitle(movieInfo.title)
 
-
     return (
         <S.PreviewWrapper>
             <div className="watchListAdd">

@@ -1,6 +1,5 @@
 // React & Components
 import React, {useEffect, useState} from 'react';
-import MoviePreview from "../MoviePreview/MoviePreview";
 
 import * as S from "./Main.styles"
 import {useDispatch, useSelector} from "react-redux";
@@ -52,12 +51,9 @@ const Main: React.FC = () => {
                     Menu
                 </div>
             </nav>
-            <h3>Featured today</h3>
 
-            <Carousel>
-                {previewData.map( (item) => <MoviePreview key={item.id} movieInfo={item} /> )}
-            </Carousel>
 
+            <Carousel movieArr={previewData} />
 
         </S.Main>
     );

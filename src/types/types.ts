@@ -36,7 +36,7 @@ export interface IRootPopResObj {
 }
 
 export interface ICarouselProps {
-    children: (Array<React.ReactNode>)
+    movieArr: Array<IPopularResult>
 }
 
-
+export type DivProps = JSX.IntrinsicElements["div"]
