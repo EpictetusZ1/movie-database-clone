@@ -1,9 +1,9 @@
 import React, {useRef} from 'react';
 import * as S from "./Carousel.styles"
-import forward from "../../assets/forwardIcon.svg"
-import backward from "../../assets/backwardIcon.svg"
+import forward from "../../assets/svgs/forwardIcon.svg"
+import backward from "../../assets/svgs/backwardIcon.svg"
 import MoviePreview from "../MoviePreview/MoviePreview";
-import {DivProps, ICarouselProps} from "../../types/types";
+import {DivProps, ICarouselProps} from "../../types/Main.types";
 
 const Carousel: React.FC<ICarouselProps> = ({movieArr}) => {
 

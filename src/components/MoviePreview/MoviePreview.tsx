@@ -1,7 +1,7 @@
 import React from 'react';
 import {Link} from "react-router-dom";
 import * as S from "./MoviePreview.styles"
-import {IPreviewProps} from "../../types/types";
+import {IPreviewProps} from "../../types/Main.types";
 import starIcon from "../../assets/svgs/starIcon.svg"
 import ribbon from "../../assets/svgs/ribbonIcon.svg"
 import addIcon from "../../assets/svgs/addIcon.svg"
@@ -20,7 +20,6 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
     }
 
     const image = `https://image.tmdb.org/t/p/w154/${movieInfo.poster_path}`
-    const data = movieInfo
     const cleanedTitle = cleanTitle(movieInfo.title)
 
     const dispatchMovie = useDispatch()
@@ -35,7 +34,9 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
 
             </div>
             <S.PreviewImage
-                onClick={() => dispatchMovie(setCurrMovie(movieInfo.id))}
+                onClick={() => {
+                    dispatchMovie(setCurrMovie(movieInfo.id))
+                }}
             >
 
                 <Link to={`movie/${cleanedTitle}`}>
