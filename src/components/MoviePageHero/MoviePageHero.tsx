@@ -1,8 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import * as S from "./HeroMoviePage.styles"
-import {IHeroProps, ISecondaryData, ITrailerAPIRespRoot, ITrailerItem} from "../../types/Hero.types";
+import {IHeroProps, ISecondaryData, ITrailerAPIRespRoot, ITrailerItem} from "../../types/MoviePage.types";
 import ticketIcon from "../../assets/svgs/ticketIcon.svg";
 import plusIcon from "../../assets/svgs/addIcon.svg";
+import starIcon from "../../assets/svgs/starIcon.svg"
+import starIconBlue from "../../assets/svgs/starIconBlue.svg"
+import metaCriticLogo from "../../assets/svgs/MetacriticLogo.svg"
 
 const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
 
@@ -89,22 +92,36 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
                 <div className="popularityContainer">
                     <div className="imdbRating rating">
                         <p className="popularCat">
-                                IMDb RATING
+                            IMDb RATING
                         </p>
+                        <img src={starIcon} alt="imdb rating"/>
+                        <div className="ratingValue">
+                            <p className="value">{secondaryState?.imdbRating}</p>&nbsp;
+                            <p className={"outOf"}> / 10</p>
+                        </div>
                     </div>
                     <div className="yourRating rating">
                         <p className="popularCat">
-                           YOUR RATING
+                            YOUR RATING
                         </p>
+                        <div className="personalRatingContainer">
+
+                            <img src={starIconBlue} alt="add your rating"/>
+                            <div className="ratingValue rateNow">Rate</div>
+                        </div>
+
                     </div>
-                    <div className="popularity rating">
+                    <div className="imdbRating rating">
                         <p className="popularCat">
-                           POPULARITY
+                            METACRITIC
                         </p>
+                        <img src={metaCriticLogo} alt="Metacritic" className={"metaIcon"}/>
+                        <div className="ratingValue">
+                            <p className="value">{secondaryState?.Metascore}</p>&nbsp;
+                            <p className={"outOf"}>/ 100</p>
+                        </div>
                     </div>
-
                 </div>
-
             </S.HeroHeader>
 
         )
@@ -112,7 +129,6 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
 
 
     const SecondaryData: React.FC = () => {
-
         return (
             <S.SecondaryData>
                 <div className={"dataSection"}>

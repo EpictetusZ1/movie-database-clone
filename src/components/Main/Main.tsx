@@ -4,27 +4,19 @@ import Carousel from "../Carousel/Carousel";
 
 import * as S from "./Main.styles"
 import {useDispatch} from "react-redux";
-import { IPopularResult} from "../../types/Main.types";
+import { IMovieArray} from "../../types/Main.types";
 
 const Main: React.FC = () => {
 
     const dispatchMovie = useDispatch()
-    const [previewData, setPreviewData] = useState<IPopularResult[]>([])
-
-    const getMovieData = async () => {
-        const popular: string = "/movie/popular"
-        const url: string = `https://api.themoviedb.org/3${popular}?api_key=${process.env.REACT_APP_TMBD_KEY}`
-        const response: Response = await fetch(url)
-
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-        return response.json()
-    }
+    const [popularMovies, setPopularMovies] = useState<IMovieArray[]>([])
+    const [topMovies, setTopMovies] = useState<IMovieArray[]>([])
 
     useEffect(() => {
-        getMovieData()
-            .then((r) => {
-                setPreviewData(r.results)
+        Promise.all([getPopularMovies(), getTopMovies()])
+            .then((values) => {
+                setPopularMovies(values[0].results)
+                setTopMovies(values[1].results)
             })
             .catch((e) => {
                 console.log(e)
@@ -32,10 +24,32 @@ const Main: React.FC = () => {
     }, [])
 
 
+    // Array for 1st instance of Carousel.tsx
+    const getPopularMovies = async () => {
+        const response: Response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMBD_KEY}`)
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+        return response.json()
+    }
+
+    // Array for 2nd instance of Carousel.tsx
+    const getTopMovies = async () => {
+        const response: Response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMBD_KEY}`)
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+        return response.json()
+    }
+
     return (
         <S.Main>
-            <Carousel movieArr={previewData} />
-
+            <br/>
+            <br/>
+            <Carousel movieArr={popularMovies} title={"Trending Movies"} subTitle={"Fan favourites"}/>
+            <br/>
+            <br/>
+            <Carousel movieArr={topMovies} title={"Featured"} subTitle={"Top Movies"}/>
         </S.Main>
     );
 };

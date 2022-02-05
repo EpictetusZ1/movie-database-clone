@@ -30,22 +30,72 @@ export const HeroHeader = styled.div`
   
   .popularityContainer {
     height: 60%;
-    width: 50%;
+    min-width: 35%;
+    width: auto;
+    max-width: 85%;
+    
     float: right;
     color: #FFF;
     display: inline-flex;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: space-evenly;
+  }
+
+  @media only screen and (max-width: 1350px) {
+    .popularityContainer {
+      width: 45vw;
+    }
   }
   
   .rating {
-    width: 33%;
+    width: 25%;
+    > img {
+      padding: 5px 10px 0 0 ;
+    }
   }
   
   .popularCat {
     opacity: 0.7;
     font-size: 0.8rem;
     letter-spacing: 2px;
+  }
+  
+  .ratingValue {
+    display: inline-flex;
+    justify-content: center;
+  }
+  
+  .value {
+    font-size: 1.3em;
+  }
+  
+  .outOf {
+    font-family: "Roboto Light", sans-serif;
+    opacity: 0.8;
+  }
+  
+  .yourRating {
+    display: grid;
+    place-items: center;
+  }
+  
+  .personalRatingContainer {
+    padding-top: 5px;
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+  }
+  
+  .rateNow {
+    color: #5799ef;
+    font-size: 1.5em;
+    letter-spacing: 1px;
+  }
+  
+  .metaIcon {
+    width: 25px;
+    height: 25px;
   }
 
 `
