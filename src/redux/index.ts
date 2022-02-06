@@ -1,1 +1,0 @@
-export { setMovies, setCurrMovie } from "./moviePage/moviePageActions"

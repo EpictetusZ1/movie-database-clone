@@ -1,9 +1,8 @@
 import { createStore } from "redux"
-import moviePageReducer from "./moviePage/moviePageReducer";
+import appReducer from "./appStore/appReducer";
 // Dev Only
 import { devToolsEnhancer } from 'redux-devtools-extension';
 
-const store = createStore(moviePageReducer, devToolsEnhancer({}))
+const store = createStore(appReducer, devToolsEnhancer({}))
 
 export default store
-

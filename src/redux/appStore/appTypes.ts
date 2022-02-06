@@ -1,15 +1,21 @@
-import {IUserState} from "../../types/Main.types";
-
-// export interface IAppState {
-//     currMovie: number
-//     signedIn: boolean
-//     user?: IUserState
-// }
-
-
-enum ActionTypes {
-    SET_CURR_MOVIE = "SET_CURR_MOVIE",
-    SET_USER_STATE = "SET_USER_STATE"
+export interface IUserReview {
+    rating: number
+    reviewContent: string
 }
 
-export default ActionTypes
+export interface IWatchLater {
+    // String is IMDb Movie ID, may add OMDB id as well
+    [index: number]: string
+}
+
+export type IUserState = {
+    user_id: string
+    reviews: IUserReview[] | []
+    watchLater: IWatchLater
+}
+
+export interface IAppState {
+    currMovie: number
+    signedIn: boolean
+    user: IUserState
+}

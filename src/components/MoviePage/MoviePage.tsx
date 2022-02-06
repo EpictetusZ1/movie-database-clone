@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import * as S from "./MoviePage.styles"
-import {IMoviePageState, ISingleMovieRoot} from "../../types/Main.types";
+import { ISingleMovieRoot} from "../../types/Main.types";
 import {useSelector } from "react-redux";
-import {IHeroProps} from "../../types/Hero.types";
-import HeroMoviePage from "../HeroMoviePage/HeroMoviePage";
+import {IHeroProps} from "../../types/MoviePage.types";
+import MoviePageHero from "../MoviePageHero/MoviePageHero";
+import {IAppState} from "../../redux/appStore/appTypes";
 
 
 const MoviePage: React.FC = () => {
 
-    const movieData = useSelector((state: IMoviePageState) => state.currMovie)
+    const movieData = useSelector((state: IAppState) => state.currMovie)
     const [heroProps, setHeroProps] = useState<IHeroProps>()
 
     const populateHeroProps = (r: ISingleMovieRoot) => {
@@ -27,17 +28,6 @@ const MoviePage: React.FC = () => {
 
     }
 
-    // Get primary movie info from API 1: The Movie Database API
-    const getData = async (): Promise<ISingleMovieRoot> => {
-        const singleMovie: string = `/movie/${movieData}`
-        const url: string = `https://api.themoviedb.org/3${singleMovie}?api_key=${process.env.REACT_APP_TMBD_KEY}`
-        const response: Response = await fetch(url)
-
-        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
-
-        return response.json()
-    }
-
     useEffect(() => {
         getData()
             .then( (r: ISingleMovieRoot) => {
@@ -48,13 +38,25 @@ const MoviePage: React.FC = () => {
             })
     }, [])
 
+    // Get primary movie info from API 1: The Movie Database API
+    const getData = async (): Promise<ISingleMovieRoot> => {
+        const response: Response = await fetch(`https://api.themoviedb.org/3/movie/${movieData}?api_key=${process.env.REACT_APP_TMBD_KEY}`)
+
+        if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
+
+        return response.json()
+    }
+
     return (
         <S.MoviePage>
             <S.MovieAboveFold>
                 <S.MainContent className={"mainContent"}>
-                    {heroProps?.props && <HeroMoviePage props={heroProps.props} />}
+                    {heroProps?.props && <MoviePageHero props={heroProps.props} />}
                 </S.MainContent>
             </S.MovieAboveFold>
+            <div className="additionalDetails">
+                <h1>More Details:</h1>
+            </div>
         </S.MoviePage>
     );
 };

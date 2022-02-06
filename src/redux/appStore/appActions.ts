@@ -1,35 +1,29 @@
-import ActionTypes from "./appTypes";
+export const SET_CURR_MOVIE = "SET_CURR_MOVIE"
+export const SET_USER_DATA = "SET_USER_DATA"
+export const SET_SIGNED_IN = "SET_SIGNED_IN"
+export const SET_SIGNED_OUT = "SET_SIGNED_OUT"
 
-interface SetCurrMovie {
- type: ActionTypes.SET_CURR_MOVIE
- payload: number
-}
+export type ActionTypes =
+    | { type: typeof SET_CURR_MOVIE; payload: number }
+    | { type: typeof SET_USER_DATA; payload: string }
+    | { type: typeof SET_SIGNED_IN; }
+    | {type: typeof  SET_SIGNED_OUT}
 
-interface SetUserData {
-    type: ActionTypes. SET_USER_STATE
-    payload: string
-}
+export const setCurrMovie = (currMovieID: number): ActionTypes => ({
+    type: SET_CURR_MOVIE,
+    payload: currMovieID
+})
 
-export type Actions =
-    | SetCurrMovie
-    | SetUserData
+export const setUserData = (user_id: string): ActionTypes => ({
+    type: SET_USER_DATA,
+    payload: user_id
+})
 
+export const setSignedIn = (): ActionTypes => ({
+    type: SET_SIGNED_IN
+})
 
-// export const setCurrMovie = (currMovieID: number) => {
-//     return {
-//         type: SET_CURR_MOVIE,
-//         payLoad: {
-//             currMovie: currMovieID
-//         }
-//     }
-// }
-//
-// export const setUserData = (userID: string) => {
-//     return {
-//         type: SET_USER_STATE,
-//         payLoad: {
-//             user_id: userID
-//         }
-//     }
-// }
+export const setSignedOut = (): ActionTypes => ({
+    type: SET_SIGNED_OUT
+})
 

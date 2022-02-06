@@ -1,21 +1,14 @@
-export interface IMoviePageState {
-    movieData: object
-    currMovie: number
-    currIMDB: number
-}
+import {ReactNode} from "react";
 
-export interface IMoviePageAction {
-    type: string
-    targetMovie?: object
-    currMovie?: number
-    currIMDB?: number
+export interface RouteProps {
+    children?: ReactNode
 }
 
 export interface IPreviewProps {
-    movieInfo: IPopularResult
+    movieInfo: IMovieArray
 }
 
-export interface IPopularResult {
+export interface IMovieArray {
     adult: boolean
     backdrop_path: string
     genre_ids: number[]
@@ -32,15 +25,17 @@ export interface IPopularResult {
     vote_count: number
 }
 
-export interface IRootPopResObj {
+export interface IRootListResObj {
     page: number
-    results: IPopularResult[]
+    results: IMovieArray[]
     total_pages: number
     total_results: number
 }
 
 export interface ICarouselProps {
-    movieArr: Array<IPopularResult>
+    movieArr: Array<IMovieArray>
+    title: string
+    subTitle: string
 }
 
 export type DivProps = JSX.IntrinsicElements["div"]
