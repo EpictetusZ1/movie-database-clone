@@ -5,7 +5,7 @@ import backward from "../../assets/svgs/backwardIcon.svg"
 import MoviePreview from "../MoviePreview/MoviePreview";
 import {DivProps, ICarouselProps} from "../../types/Main.types";
 
-const Carousel: React.FC<ICarouselProps> = ({movieArr}) => {
+const Carousel: React.FC<ICarouselProps> = ({movieArr, title, subTitle}) => {
 
     const scrollRef = useRef<HTMLDivElement>(null)
 
@@ -25,8 +25,8 @@ const Carousel: React.FC<ICarouselProps> = ({movieArr}) => {
 
     return (
         <S.Carousel>
-            <h3>Watch To Watch</h3>
-            <h4>Top Picks </h4>
+            <h3>{title}</h3>
+            <h4>{subTitle}</h4>
 
             <CarouselContainer ref={scrollRef}>
                 <div className="backwardContainer"
@@ -39,7 +39,7 @@ const Carousel: React.FC<ICarouselProps> = ({movieArr}) => {
                          alt="left scroll"/>
                 </div>
 
-                {movieArr.map( (item) => <MoviePreview key={item.id} movieInfo={item} /> )}
+                {movieArr.map( (item, index) => <MoviePreview key={item.id} movieInfo={item} index={index} /> )}
 
                 <div className="forwardContainer"
                      onClick={() => {

@@ -1,8 +1,16 @@
 import styled from "styled-components";
 
 export const Carousel = styled.div`
-  width: 95%;
-  
+  width: 90%;
+
+  @media only screen and (min-width: 1500px) {
+    width: 85%;
+  }
+
+  @media only screen and (min-width: 1600px) {
+    width: 75%;
+  }
+
   h3 {
     margin: 24px 0 0 0;
   }
@@ -23,7 +31,6 @@ export const Carousel = styled.div`
 
   width: 100%;
   display: grid;
-
   grid-template-columns: none;
   grid-auto-columns: calc(8.33333% - .91667 * 1rem - 0rem);
   grid-auto-flow: column;

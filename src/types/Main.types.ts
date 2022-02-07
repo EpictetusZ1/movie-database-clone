@@ -6,6 +6,7 @@ export interface RouteProps {
 
 export interface IPreviewProps {
     movieInfo: IMovieArray
+    index: number
 }
 
 export interface IMovieArray {

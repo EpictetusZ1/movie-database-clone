@@ -9,9 +9,9 @@ import addIconBlue from "../../assets/svgs/addIconBlue.svg"
 import trailerIcon from "../../assets/svgs/trailerIcon.svg"
 import infoIcon from "../../assets/svgs/infoIcon.svg"
 import {useDispatch} from "react-redux";
-import {setCurrMovie} from "../../redux";
+import {addUserWatchLater, setCurrMovie} from "../../redux/appStore/appActions";
 
-const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
+const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
 
     const cleanTitle = (text: string): string => {
         let cleanText = text.replaceAll(" ", "-")
@@ -22,12 +22,13 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
     const image = `https://image.tmdb.org/t/p/w154/${movieInfo.poster_path}`
     const cleanedTitle = cleanTitle(movieInfo.title)
 
-    const dispatchMovie = useDispatch()
+    const dispatch = useDispatch()
 
     return (
         <S.PreviewWrapper>
             <div className="watchListAdd">
-                <div className="ribbonContainer">
+                <div onClick={() => dispatch(addUserWatchLater(movieInfo.id))}
+                    className="ribbonContainer">
                     <img src={ribbon} className="ribbon" alt="add to watchlist"/>
                     <img src={addIcon} className="addIcon" alt="add to watchlist"/>
                 </div>
@@ -35,8 +36,9 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
             </div>
             <S.PreviewImage
                 onClick={() => {
-                    dispatchMovie(setCurrMovie(movieInfo.id))
-                }}
+                    dispatch( setCurrMovie(movieInfo.id) )
+                }
+            }
             >
 
                 <Link to={`movie/${cleanedTitle}`}>

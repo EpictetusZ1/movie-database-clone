@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MoviePage = styled.div`
   background-color: #FFF;
-  min-height: 100vh;
+  min-height: 120vh;
   height: auto;
 
   ul {
@@ -16,11 +16,19 @@ export const MoviePage = styled.div`
       padding: 0 5px;
     }
   }
+
+  .additionalDetails {
+    height: 50vh;
+    background-color: #FFF;
+     > h1 {
+       color: #000;
+     }
+  }
 `
 
 export const MovieAboveFold = styled.div`
   width: 100vw;
-  height: 100vh;
+  height: 100%;
   background-color: #202020;
   display: flex;
   justify-content: center;

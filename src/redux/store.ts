@@ -6,3 +6,4 @@ import { devToolsEnhancer } from 'redux-devtools-extension';
 const store = createStore(appReducer, devToolsEnhancer({}))
 
 export default store
+

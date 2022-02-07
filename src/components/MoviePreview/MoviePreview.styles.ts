@@ -9,7 +9,12 @@ export const PreviewWrapper = styled.div`
   border-radius: 0 0 4px 4px;
   
   // This component sits in a css grid from Carousel.tsx
-  grid-column: span 3;
+  grid-column: span 2;
+
+  @media only screen and (max-width: 1400px) {
+    grid-column: span 3;
+    margin: 0 2em 0 0;
+  }
 
   @media only screen and (max-width: 1200px) {
     grid-column: span 4;

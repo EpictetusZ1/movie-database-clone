@@ -1,17 +1,21 @@
 import React, {useEffect, useState} from 'react';
-import * as S from "./HeroMoviePage.styles"
+import * as S from "./MoviePageHero.styles"
 import {IHeroProps, ISecondaryData, ITrailerAPIRespRoot, ITrailerItem} from "../../types/MoviePage.types";
 import ticketIcon from "../../assets/svgs/ticketIcon.svg";
 import plusIcon from "../../assets/svgs/addIcon.svg";
 import starIcon from "../../assets/svgs/starIcon.svg"
 import starIconBlue from "../../assets/svgs/starIconBlue.svg"
 import metaCriticLogo from "../../assets/svgs/MetacriticLogo.svg"
+import {useDispatch} from "react-redux";
+import {addUserWatchLater} from "../../redux/appStore/appActions";
 
-const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
+const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
 
     const { movieID, title, release_date, poster_path, runtime, genres, overview, imdb_id} = props
     const [trailer, setTrailer] = useState<string>("")
     const [secondaryState, setSecondaryState] = useState<ISecondaryData>()
+
+    const dispatch = useDispatch()
 
     useEffect(() => {
         Promise.all([getTrailer(), getSecondaryData()])
@@ -33,7 +37,6 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
         return trailerRes.json()
     }
 
-
     // Get secondary movie info from API 2: The Open Movie Database
     const getSecondaryData = async (): Promise<ISecondaryData> => {
         const url: string = `https://www.omdbapi.com/?apikey=${process.env.REACT_APP_OMDB_KEY}&i=${imdb_id}`
@@ -44,7 +47,7 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
         return response.json()
     }
 
-    const getOfficialTrailer = (data: any) => {
+    const getOfficialTrailer = (data: ITrailerAPIRespRoot) => {
         const checkObjKeys = () => {
             const [official] = data.results.filter((item: ITrailerItem) => item.name === "Official Trailer")
             const [official1] = data.results.filter((item: ITrailerItem) => item.name === "Official Trailer 1")
@@ -66,7 +69,6 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
     }
 
     const MovieHeader: React.FC = () => {
-        //TODO: Add IMDb Rating, your rating, popularity
         const releaseYear = () => {
             let onlyYear
             onlyYear = release_date.match(/[0-9]{4}/)
@@ -127,7 +129,6 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
         )
     }
 
-
     const SecondaryData: React.FC = () => {
         return (
             <S.SecondaryData>
@@ -143,8 +144,6 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
                     <p className={"jobTitle"}>Stars</p>
                     <p className={"personName"}>{secondaryState?.Actors}</p>
                 </div>
-
-
             </S.SecondaryData>
         )
     }
@@ -175,7 +174,8 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
 
                 <div className="ctaCont">
                     <button className="showtime"><img src={ticketIcon} alt="tickets"/><span><b>See Showtimes</b> <br/> and tickets</span></button>
-                    <div className="watchlistHero">
+                    <div onClick={() => dispatch(addUserWatchLater(movieID))}
+                        className="watchlistHero">
                         <img src={plusIcon} alt="add to watchlist"/>
                         Add to Watchlist
                     </div>
@@ -183,9 +183,8 @@ const HeroMoviePage: React.FC<IHeroProps> = ({props}) => {
             </div>
 
             <SecondaryData />
-
         </S.MoviePageHero>
     )
 }
 
-export default HeroMoviePage;
+export default MoviePageHero;

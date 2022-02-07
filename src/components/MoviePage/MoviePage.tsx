@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import * as S from "./MoviePage.styles"
 import { ISingleMovieRoot} from "../../types/Main.types";
-import {useSelector } from "react-redux";
+import { useSelector} from "react-redux";
 import {IHeroProps} from "../../types/MoviePage.types";
 import MoviePageHero from "../MoviePageHero/MoviePageHero";
 import {IAppState} from "../../redux/appStore/appTypes";

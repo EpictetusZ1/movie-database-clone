@@ -27,7 +27,7 @@ export interface ITrailerItem {
 }
 
 export interface ITrailerAPIRespRoot {
-    [index: number]: ITrailerItem
+    results: ITrailerItem[]
 }
 
 export interface Rating {

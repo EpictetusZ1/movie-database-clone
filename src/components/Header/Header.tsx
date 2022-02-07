@@ -3,14 +3,11 @@ import iconSmall from "../../assets/svgs/image-icon-small.svg";
 import * as S from  "./Header.styles"
 import { Link } from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {setUserData, setSignedIn, setSignedOut} from "../../redux/appStore/appActions";
+import {setUserData, setSignedOut} from "../../redux/appStore/appActions";
 import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
-import {IAppState} from "../../redux/appStore/appTypes";
 
 const Header = () => {
-
-    const isSignedIn = useSelector((state: IAppState) => state.signedIn)
 
     const auth = getAuth()
     const [user] = useAuthState(auth)
@@ -21,55 +18,70 @@ const Header = () => {
             if (user) {
                 const uid = user.uid
                 dispatch(setUserData(uid))
-                dispatch(setSignedIn())
-            } else {
-                dispatch(setUserData("guest"))
-                dispatch(setSignedOut())
             }
         }
-
         updateUserData()
     }, [user])
 
     const SignIn: React.FC = () => {
+
         const singInWithGoogle = () => {
             const provider = new GoogleAuthProvider()
             signInWithPopup(auth, provider)
-                .catch((error) => {
-                    const errorCode = error.code
-                    const errorMessage = error.message
-                    console.log("Error", errorCode, errorMessage)
+                .catch( (error) => {
+                    console.log("Error", error.code, error.message)
                 })
         }
         return (
-            <S.SignIn onClick={singInWithGoogle}>
-               Sign In With Google
-            </S.SignIn>
+            <S.NavItem onClick={() => singInWithGoogle()}>
+                <p>Sign In With Google</p>
+            </S.NavItem>
         )
     }
 
-    const SignOut = () => {
+    const SignOut: React.FC = () => {
         return auth.currentUser && (
-            <div onClick={() => auth.signOut()}>
-                Sign out
-            </div>
+            <S.NavItem onClick={() => {
+                auth.signOut()
+                    .then( () => dispatch( setSignedOut()) )
+            }}>
+                <p>Sign Out</p>
+            </S.NavItem>
         )
+    }
 
+    const ProfileLink: React.FC = () => {
+        return auth.currentUser && (
+                <S.NavItem>
+                    <Link to={"/profile"}>
+                    <p>Profile</p>
+                    </Link>
+                </S.NavItem>
+        )
+    }
+
+    const WatchList: React.FC = () => {
+        return auth.currentUser && (
+            <S.NavItem>
+                <p>Watchlist</p>
+            </S.NavItem>
+        )
     }
 
     return (
         <S.Header>
             <div className="navInner">
-                <Link to={`/`}>
+                <Link to={"/"}>
                     <img src={iconSmall} alt="Movie Database"/>
                 </Link>
                 Menu
                 <input type="text" placeholder={"Search IMDb"}/>
 
-                { user ? <div>Profile</div> : <SignIn/> }
-                <SignOut />
-
-                Watchlist
+                <div className="navItems">
+                    { user ? <ProfileLink /> : <SignIn/> }
+                    <SignOut />
+                    <WatchList />
+                </div>
             </div>
         </S.Header>
     );

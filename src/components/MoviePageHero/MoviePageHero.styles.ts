@@ -113,6 +113,7 @@ export const MoviePageHero = styled.div`
     img {
       height: 360px;
       width: auto;
+      border-right: 2px solid rgba(255, 255, 255, 0.7);
     }
   }
 
