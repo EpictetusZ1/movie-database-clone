@@ -25,7 +25,7 @@ const Firebase = () => {
     const firestore = getFirestore(app)
 
     const checkUserDoc = async() => {
-        if (!user) return
+        if (!isSignedIn) return
         const userRef = doc(firestore, "users", `${user.user_id}`)
         const userSnapshot = await getDoc(userRef)
 
@@ -51,8 +51,8 @@ const Firebase = () => {
         }
     }, [isSignedIn])
 
-    const updateUserDataInFirebase = async () => {
-        if (!user) return
+    const updateUserInFirebase = async () => {
+        if (!isSignedIn) return
         const usersRef = collection(firestore, "users") // COLLECTION
         const userRef = doc(usersRef, `${user.user_id}`);
 
@@ -62,7 +62,7 @@ const Firebase = () => {
     }
 
     useEffect(() => {
-        updateUserDataInFirebase()
+        updateUserInFirebase()
     }, [watchLater])
 
     return (

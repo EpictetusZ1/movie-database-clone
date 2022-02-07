@@ -3,13 +3,14 @@ import {
     ADD_USER_REVIEW,
     ADD_USER_WATCH_LATER,
     MAP_DB_STATE_TO_REDUX,
+    REMOVE_WATCH_LATER_ITEM,
     SET_CURR_MOVIE,
     SET_SIGNED_OUT,
     SET_USER_DATA,
     SET_USER_REVIEWS,
     SET_USER_WATCH_LATER
 } from "./appActions";
-import {IAppState} from "./appTypes";
+import {IAppState, IWatchLater} from "./appTypes";
 
 const initialState: IAppState = {
     currMovie: 0,
@@ -83,7 +84,16 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
                     watchLater: action.payload.watchLater
                 }
             }
-
+        case REMOVE_WATCH_LATER_ITEM:
+            const watchLaterItems = state.user.watchLater
+            const watchLaterClean = watchLaterItems.filter((item: IWatchLater) => item.id !== action.payload)
+            return {
+                ...state,
+                user: {
+                    ...state.user,
+                    watchLater: watchLaterClean
+                }
+            }
     }
 }
 

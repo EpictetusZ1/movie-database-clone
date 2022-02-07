@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import iconSmall from "../../assets/svgs/image-icon-small.svg";
 import * as S from  "./Header.styles"
 import { Link } from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {setUserData, setSignedOut} from "../../redux/appStore/appActions";
 import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
@@ -27,6 +27,7 @@ const Header = () => {
 
         const singInWithGoogle = () => {
             const provider = new GoogleAuthProvider()
+
             signInWithPopup(auth, provider)
                 .catch( (error) => {
                     console.log("Error", error.code, error.message)

@@ -174,7 +174,13 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
 
                 <div className="ctaCont">
                     <button className="showtime"><img src={ticketIcon} alt="tickets"/><span><b>See Showtimes</b> <br/> and tickets</span></button>
-                    <div onClick={() => dispatch(addUserWatchLater(movieID))}
+                    <div onClick={() => dispatch(addUserWatchLater({
+                        id: movieID,
+                        title: title,
+                        poster_path: poster_path,
+                        overview: overview,
+                        release_date: release_date
+                    }))}
                         className="watchlistHero">
                         <img src={plusIcon} alt="add to watchlist"/>
                         Add to Watchlist

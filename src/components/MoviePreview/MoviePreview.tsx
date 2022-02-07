@@ -27,7 +27,13 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
     return (
         <S.PreviewWrapper>
             <div className="watchListAdd">
-                <div onClick={() => dispatch(addUserWatchLater(movieInfo.id))}
+                <div onClick={() => dispatch(addUserWatchLater({
+                    id: movieInfo.id,
+                    title: movieInfo.title,
+                    poster_path: movieInfo.poster_path,
+                    overview: movieInfo.overview,
+                    release_date: movieInfo.release_date
+                }))}
                     className="ribbonContainer">
                     <img src={ribbon} className="ribbon" alt="add to watchlist"/>
                     <img src={addIcon} className="addIcon" alt="add to watchlist"/>
@@ -37,8 +43,7 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
             <S.PreviewImage
                 onClick={() => {
                     dispatch( setCurrMovie(movieInfo.id) )
-                }
-            }
+                }}
             >
 
                 <Link to={`movie/${cleanedTitle}`}>
@@ -56,7 +61,13 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
                     <p className="movieTitle">{movieInfo.title}</p>
 
                     <S.ActionsContainer>
-                        <S.AddWatchlistBtn>
+                        <S.AddWatchlistBtn onClick={() => dispatch(addUserWatchLater({
+                            id: movieInfo.id,
+                            title: movieInfo.title,
+                            poster_path: movieInfo.poster_path,
+                            overview: movieInfo.overview,
+                            release_date: movieInfo.release_date
+                        }))}>
                             <img src={addIconBlue} alt="add to watchlist"/>
                             Watchlist
                         </S.AddWatchlistBtn>

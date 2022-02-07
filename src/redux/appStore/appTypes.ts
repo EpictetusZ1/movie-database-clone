@@ -4,15 +4,18 @@ export interface IUserReview {
     reviewContent: string
 }
 
-// export interface IWatchLater {
-//     // String is IMDb Movie ID, may add OMDB id as well
-//     [index: number]: number
-// }
+export interface IWatchLater {
+    id: number
+    title: string
+    poster_path: string
+    overview: string
+    release_date: string
+}
 
 export type IUserState = {
     user_id: string
     reviews: IUserReview[]
-    watchLater: number[]
+    watchLater: IWatchLater[]
 }
 
 export interface IAppState {

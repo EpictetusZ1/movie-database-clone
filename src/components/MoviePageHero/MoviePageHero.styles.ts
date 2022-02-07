@@ -137,7 +137,6 @@ export const MoviePageHero = styled.div`
       border-radius: 2rem;
       padding: 6px 10px;
       margin: 0 5px;
-
     }
 
   }
