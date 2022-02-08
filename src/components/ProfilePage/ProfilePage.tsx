@@ -12,6 +12,7 @@ const ProfilePage = () => {
         <S.ProfilePage>
             <div className="mainContent">
                 <h2>Your Watchlist</h2>
+                <hr/>
 
                 <div className="watchlistContainer">
                     {user.watchLater.map((item: IWatchLater) => <WatchLater key={item.id} props={item} />)}

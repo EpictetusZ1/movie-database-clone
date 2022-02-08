@@ -32,7 +32,8 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
                     title: movieInfo.title,
                     poster_path: movieInfo.poster_path,
                     overview: movieInfo.overview,
-                    release_date: movieInfo.release_date
+                    release_date: movieInfo.release_date,
+                    vote_rating: movieInfo.vote_average
                 }))}
                     className="ribbonContainer">
                     <img src={ribbon} className="ribbon" alt="add to watchlist"/>
@@ -66,7 +67,8 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
                             title: movieInfo.title,
                             poster_path: movieInfo.poster_path,
                             overview: movieInfo.overview,
-                            release_date: movieInfo.release_date
+                            release_date: movieInfo.release_date,
+                            vote_rating: movieInfo.vote_average
                         }))}>
                             <img src={addIconBlue} alt="add to watchlist"/>
                             Watchlist

@@ -14,7 +14,7 @@ import {IAppState, IWatchLater} from "./appTypes";
 
 const initialState: IAppState = {
     currMovie: 0,
-    currMovIMDB: 0,
+    currReviews: [],
     signedIn: false,
     user: {
         user_id: "guest",

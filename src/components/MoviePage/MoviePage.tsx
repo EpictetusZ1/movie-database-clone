@@ -5,6 +5,7 @@ import { useSelector} from "react-redux";
 import {IHeroProps} from "../../types/MoviePage.types";
 import MoviePageHero from "../MoviePageHero/MoviePageHero";
 import {IAppState} from "../../redux/appStore/appTypes";
+import Reviews from "../Reviews/Reviews";
 
 
 const MoviePage: React.FC = () => {
@@ -22,7 +23,8 @@ const MoviePage: React.FC = () => {
                 poster_path: r.poster_path,
                 runtime: r.runtime,
                 genres: r.genres,
-                overview: r.overview
+                overview: r.overview,
+                vote_rating: r.vote_average
             }
         })
 
@@ -31,7 +33,7 @@ const MoviePage: React.FC = () => {
     useEffect(() => {
         getData()
             .then( (r: ISingleMovieRoot) => {
-                populateHeroProps(r)
+                if (r) populateHeroProps(r)
             })
             .catch( (e) => {
                 console.log(e)
@@ -56,6 +58,7 @@ const MoviePage: React.FC = () => {
             </S.MovieAboveFold>
             <div className="additionalDetails">
                 <h1>More Details:</h1>
+                <Reviews />
             </div>
         </S.MoviePage>
     );

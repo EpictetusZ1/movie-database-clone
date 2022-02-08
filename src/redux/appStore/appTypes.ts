@@ -1,7 +1,9 @@
 export interface IUserReview {
+    isOwner: boolean
+    reviewHeadline: string
     rating: number
-    movieRef: number
     reviewContent: string
+    _ownerRef: string
 }
 
 export interface IWatchLater {
@@ -10,6 +12,7 @@ export interface IWatchLater {
     poster_path: string
     overview: string
     release_date: string
+    vote_rating: number
 }
 
 export type IUserState = {
@@ -20,7 +23,13 @@ export type IUserState = {
 
 export interface IAppState {
     currMovie: number
-    currMovIMDB: number
     signedIn: boolean
     user: IUserState
+    currReviews: IUserReview[]
+}
+
+export type TFirebaseReviewResponse = IUserReview[]
+
+export interface IReviewItemProps {
+   props: IUserReview
 }

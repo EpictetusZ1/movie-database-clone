@@ -2,13 +2,13 @@
 import React from 'react';
 import RouteSwitch from "./router/RouteSwitch";
 import Header from "./components/Header/Header";
-import Firebase from "./Firebase/Firebase";
+import FireSUsers from "./Firebase/FireSUsers";
 
 const App = () => {
 
     return (
         <div className={"app"}>
-            <Firebase />
+            <FireSUsers />
             <RouteSwitch>
                 <Header />
             </RouteSwitch>

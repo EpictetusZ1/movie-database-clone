@@ -10,6 +10,7 @@ export interface IHeroProps {
         runtime: number
         genres: Genre[]
         overview: string
+        vote_rating: number
     }
 }
 

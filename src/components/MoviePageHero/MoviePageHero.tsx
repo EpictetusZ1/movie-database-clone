@@ -11,7 +11,7 @@ import {addUserWatchLater} from "../../redux/appStore/appActions";
 
 const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
 
-    const { movieID, title, release_date, poster_path, runtime, genres, overview, imdb_id} = props
+    const { movieID, title, release_date, poster_path, runtime, genres, overview, imdb_id, vote_rating} = props
     const [trailer, setTrailer] = useState<string>("")
     const [secondaryState, setSecondaryState] = useState<ISecondaryData>()
 
@@ -179,7 +179,8 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
                         title: title,
                         poster_path: poster_path,
                         overview: overview,
-                        release_date: release_date
+                        release_date: release_date,
+                        vote_rating: vote_rating
                     }))}
                         className="watchlistHero">
                         <img src={plusIcon} alt="add to watchlist"/>

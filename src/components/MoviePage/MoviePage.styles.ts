@@ -18,8 +18,10 @@ export const MoviePage = styled.div`
   }
 
   .additionalDetails {
-    height: 50vh;
-    background-color: #FFF;
+    padding: 0.5rem 1rem;
+    min-height: 50vh;
+    background-color: #E3E2DD;
+    
      > h1 {
        color: #000;
      }

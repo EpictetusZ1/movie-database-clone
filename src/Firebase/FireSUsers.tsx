@@ -1,32 +1,21 @@
 import React, {useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {IAppState} from "../redux/appStore/appTypes";
-import {doc, getDoc, getFirestore, setDoc, updateDoc, collection} from "firebase/firestore";
-import {initializeApp} from "firebase/app";
+import {doc, getDoc, setDoc, updateDoc, collection} from "firebase/firestore";
 import {mapDBStateToRedux} from "../redux/appStore/appActions";
+import MyFirestore from "./Firestore";
 
-const Firebase = () => {
+
+const FireSUsers = () => {
     const user = useSelector((state: IAppState) => state.user)
     const isSignedIn = useSelector((state: IAppState) => state.signedIn)
     const watchLater = useSelector((state: IAppState) => state.user.watchLater)
 
     const dispatch = useDispatch()
 
-    const firebaseConfig = {
-        apiKey: "AIzaSyDsl0ETHfI7m13ZH4ZwoEGodr268HoShJI",
-        authDomain: "moviedatabaseclone.firebaseapp.com",
-        projectId: "moviedatabaseclone",
-        storageBucket: "moviedatabaseclone.appspot.com",
-        messagingSenderId: "897684310546",
-        appId: "1:897684310546:web:f80e45720cba435258a6cb"
-    }
-
-    const app = initializeApp(firebaseConfig)
-    const firestore = getFirestore(app)
-
     const checkUserDoc = async() => {
         if (!isSignedIn) return
-        const userRef = doc(firestore, "users", `${user.user_id}`)
+        const userRef = doc(MyFirestore, "users", `${user.user_id}`)
         const userSnapshot = await getDoc(userRef)
 
         const createUserDoc = async () => {
@@ -44,16 +33,14 @@ const Firebase = () => {
         if (isSignedIn) {
             checkUserDoc()
                 .then( (r) => {
-                    if (r) {
-                        dispatch(mapDBStateToRedux(r.watchLater, r.reviews))
-                    }
+                    if (r) dispatch(mapDBStateToRedux(r.watchLater, r.reviews))
             })
         }
     }, [isSignedIn])
 
     const updateUserInFirebase = async () => {
         if (!isSignedIn) return
-        const usersRef = collection(firestore, "users") // COLLECTION
+        const usersRef = collection(MyFirestore, "users") // COLLECTION
         const userRef = doc(usersRef, `${user.user_id}`);
 
         await updateDoc(userRef, {
@@ -71,4 +58,4 @@ const Firebase = () => {
     );
 };
 
-export default Firebase;
+export default FireSUsers;

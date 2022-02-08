@@ -48,7 +48,6 @@ export interface BelongsToCollection {
     backdrop_path: string
 }
 
-
 export interface Genre {
     id: number
     name: string
