@@ -21,10 +21,17 @@ export type IUserState = {
     watchLater: IWatchLater[]
 }
 
+export interface ICurrMovie {
+    movie_id: number,
+    title: string,
+    poster: string
+}
+
 export interface IAppState {
-    currMovie: number
+    currMovie: ICurrMovie
     signedIn: boolean
     user: IUserState
+    addReviewVisible: boolean
     currReviews: IUserReview[]
 }
 

@@ -5,17 +5,24 @@ import {
     MAP_DB_STATE_TO_REDUX,
     REMOVE_WATCH_LATER_ITEM,
     SET_CURR_MOVIE,
+    SET_CURR_MOVIE_ID,
     SET_SIGNED_OUT,
     SET_USER_DATA,
     SET_USER_REVIEWS,
-    SET_USER_WATCH_LATER
+    SET_USER_WATCH_LATER,
+    TOGGLE_SHOW_REVIEW
 } from "./appActions";
 import {IAppState, IWatchLater} from "./appTypes";
 
 const initialState: IAppState = {
-    currMovie: 0,
+    currMovie: {
+        movie_id: 0,
+        title: "",
+        poster: ""
+    },
     currReviews: [],
     signedIn: false,
+    addReviewVisible: false,
     user: {
         user_id: "guest",
         reviews: [],
@@ -30,7 +37,19 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
         case SET_CURR_MOVIE:
             return {
                 ...state,
-                currMovie: action.payload
+                currMovie: {
+                    movie_id: action.payload.movie_id,
+                    title: action.payload.title,
+                    poster: action.payload.poster
+                }
+            }
+        case SET_CURR_MOVIE_ID:
+            return {
+                ...state,
+                currMovie: {
+                    ...state.currMovie,
+                    movie_id: action.payload
+                }
             }
         case SET_USER_DATA:
             return {
@@ -93,6 +112,11 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
                     ...state.user,
                     watchLater: watchLaterClean
                 }
+            }
+        case TOGGLE_SHOW_REVIEW:
+            return {
+                ...state,
+                addReviewVisible: !state.addReviewVisible
             }
     }
 }

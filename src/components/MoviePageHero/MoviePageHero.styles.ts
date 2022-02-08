@@ -33,7 +33,6 @@ export const HeroHeader = styled.div`
     min-width: 35%;
     width: auto;
     max-width: 85%;
-    
     float: right;
     color: #FFF;
     display: inline-flex;
@@ -63,6 +62,7 @@ export const HeroHeader = styled.div`
   .ratingValue {
     display: inline-flex;
     justify-content: center;
+    align-items: center;
   }
   
   .value {
@@ -85,19 +85,25 @@ export const HeroHeader = styled.div`
     display: flex;
     justify-content: space-evenly;
     align-items: center;
+    
+    :hover {
+      cursor: pointer;
+    }
   }
-  
+
   .rateNow {
     color: #5799ef;
     font-size: 1.5em;
     letter-spacing: 1px;
+    display: flex;
+    justify-content: center;
+    padding: 0 0.25rem;
   }
-  
+
   .metaIcon {
     width: 25px;
     height: 25px;
   }
-
 `
 
 export const MoviePageHero = styled.div`
@@ -108,13 +114,15 @@ export const MoviePageHero = styled.div`
     width: 100%;
   }
 
-
   .posterContainer {
-    img {
-      height: 360px;
-      width: auto;
-      border-right: 2px solid rgba(255, 255, 255, 0.7);
+    height: 360px;
+    width: auto;
+    border-right: 2px solid rgba(255, 255, 255, 0.7);
+
+    > img {
+      max-height: 100%;
     }
+
   }
 
   iframe {
@@ -211,6 +219,12 @@ export const MoviePageHero = styled.div`
     border-radius: 8px;
     padding: 10px 16px;
     width: auto;
+    transition: background-color 0.2s ease-in-out;
+
+    :hover {
+      cursor: pointer;
+      background-color: #494949;
+    }
   }
 `
 
@@ -221,12 +235,12 @@ export const SecondaryData = styled.div`
   justify-content: center;
 
   .dataSection {
-    padding: 15px 0; 
+    padding: 15px 0;
     width: 95%;
     display: inline-flex;
-    border-top: 1px solid rgba(255, 255, 255, 0.2); 
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
   }
-  
+
   .jobTitle {
     font-size: 1.2em;
     color: #FFF;
@@ -237,7 +251,7 @@ export const SecondaryData = styled.div`
     padding: 0 0 0 15px;
     font-size: 1em;
     color: #5799ef;
-    
+
     :hover {
       cursor: pointer;
     }

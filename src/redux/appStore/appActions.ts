@@ -1,6 +1,7 @@
-import {IUserReview, IWatchLater} from "./appTypes";
+import {ICurrMovie, IUserReview, IWatchLater} from "./appTypes";
 
 export const SET_CURR_MOVIE = "SET_CURR_MOVIE"
+export const SET_CURR_MOVIE_ID = "SET_CURR_MOVIE_ID"
 export const SET_USER_DATA = "SET_USER_DATA"
 export const SET_SIGNED_OUT = "SET_SIGNED_OUT"
 export const SET_USER_REVIEWS = "SET_USER_REVIEWS"
@@ -9,9 +10,12 @@ export const SET_USER_WATCH_LATER = "SET_USER_WATCH_LATER"
 export const ADD_USER_WATCH_LATER = "ADD_USER_WATCH_LATER"
 export const MAP_DB_STATE_TO_REDUX = "MAP_DB_STATE_TO_REDUX"
 export const REMOVE_WATCH_LATER_ITEM = "REMOVE_WATCH_LATER_ITEM"
+export const TOGGLE_SHOW_REVIEW = "SHOW_ADD_REVIEW"
+
 
 export type ActionTypes =
-    | { type: typeof SET_CURR_MOVIE; payload: number }
+    | { type: typeof SET_CURR_MOVIE; payload: ICurrMovie }
+    | { type: typeof SET_CURR_MOVIE_ID; payload: number }
     | { type: typeof SET_USER_DATA; payload: string }
     | { type: typeof SET_SIGNED_OUT}
     | { type: typeof SET_USER_REVIEWS; payload: IUserReview[]}
@@ -23,10 +27,17 @@ export type ActionTypes =
         reviews: IUserReview[]
     }}
     | { type: typeof REMOVE_WATCH_LATER_ITEM; payload: number }
+    | { type: typeof TOGGLE_SHOW_REVIEW}
 
-export const setCurrMovie = (currMovieID: number): ActionTypes => ({
+
+export const setCurrMovie = (currMovie: ICurrMovie): ActionTypes => ({
     type: SET_CURR_MOVIE,
-    payload: currMovieID
+    payload: currMovie
+})
+
+export const setCurrMovieID = (currMovieId: number): ActionTypes => ({
+    type: SET_CURR_MOVIE_ID,
+    payload: currMovieId
 })
 
 export const setUserData = (user_id: string): ActionTypes => ({
@@ -69,5 +80,9 @@ export const mapDBStateToRedux = (watchLater: IWatchLater[], reviews: IUserRevie
 export const removeWatchLaterItem = (item_id: number): ActionTypes => ({
     type: REMOVE_WATCH_LATER_ITEM,
     payload: item_id
+})
+
+export const toggleShowReview = (): ActionTypes => ({
+    type: TOGGLE_SHOW_REVIEW
 })
 

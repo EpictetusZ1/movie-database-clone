@@ -31,7 +31,6 @@ const Reviews: React.FC = () => {
         checkReviews()
             .then( (res) => {
                 setReviews(res)
-
             })
             .catch( (e) => {
                 console.log(e)

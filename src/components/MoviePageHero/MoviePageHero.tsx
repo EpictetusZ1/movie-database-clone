@@ -7,6 +7,7 @@ import starIcon from "../../assets/svgs/starIcon.svg"
 import starIconBlue from "../../assets/svgs/starIconBlue.svg"
 import metaCriticLogo from "../../assets/svgs/MetacriticLogo.svg"
 import {useDispatch} from "react-redux";
+import {toggleShowReview} from "../../redux/appStore/appActions";
 import {addUserWatchLater} from "../../redux/appStore/appActions";
 
 const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
@@ -14,7 +15,6 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
     const { movieID, title, release_date, poster_path, runtime, genres, overview, imdb_id, vote_rating} = props
     const [trailer, setTrailer] = useState<string>("")
     const [secondaryState, setSecondaryState] = useState<ISecondaryData>()
-
     const dispatch = useDispatch()
 
     useEffect(() => {
@@ -106,10 +106,13 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
                         <p className="popularCat">
                             YOUR RATING
                         </p>
-                        <div className="personalRatingContainer">
-
+                        <div className="personalRatingContainer"
+                             onClick={() => dispatch(toggleShowReview())}
+                        >
                             <img src={starIconBlue} alt="add your rating"/>
-                            <div className="ratingValue rateNow">Rate</div>
+                            <div className="ratingValue rateNow">
+                                Rate
+                            </div>
                         </div>
 
                     </div>

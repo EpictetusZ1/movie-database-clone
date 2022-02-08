@@ -10,7 +10,7 @@ import Reviews from "../Reviews/Reviews";
 
 const MoviePage: React.FC = () => {
 
-    const movieData = useSelector((state: IAppState) => state.currMovie)
+    const movieData = useSelector((state: IAppState) => state.currMovie.movie_id)
     const [heroProps, setHeroProps] = useState<IHeroProps>()
 
     const populateHeroProps = (r: ISingleMovieRoot) => {

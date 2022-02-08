@@ -43,7 +43,11 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
             </div>
             <S.PreviewImage
                 onClick={() => {
-                    dispatch( setCurrMovie(movieInfo.id) )
+                    dispatch( setCurrMovie({
+                        movie_id: movieInfo.id,
+                        title: movieInfo.title,
+                        poster: movieInfo.poster_path
+                    }) )
                 }}
             >
 

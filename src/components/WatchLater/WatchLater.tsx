@@ -25,7 +25,12 @@ const WatchLater: React.FC<IWatchLaterProps> = ({props}) => {
 
             <div className="infoContainer">
                 <Link to={`/movie/${cleanTitle(title)}`}
-                      onClick={() => dispatch( setCurrMovie(id) )}
+                      onClick={() => dispatch( setCurrMovie({
+                          movie_id: id,
+                          title: title,
+                          poster: poster_path
+                      }
+                      ))}
                 >
                     <p className={"title"}>{title}</p>
                 </Link>

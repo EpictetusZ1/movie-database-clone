@@ -12,10 +12,15 @@ export const Reviews = styled.div`
     border: none;
     padding: 0.25rem 0.5rem;
     border-radius: 0.25rem;
+    
+    :hover {
+      cursor: pointer;
+    }
   }
   
   .reviewContainer {
     margin: 1rem 0;
     padding: 1rem;
   }
+  
 `
