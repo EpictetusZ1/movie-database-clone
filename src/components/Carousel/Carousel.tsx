@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import * as S from "./Carousel.styles"
 import forward from "../../assets/svgs/forwardIcon.svg"
 import backward from "../../assets/svgs/backwardIcon.svg"
@@ -8,6 +8,21 @@ import {DivProps, ICarouselProps} from "../../types/Main.types";
 const Carousel: React.FC<ICarouselProps> = ({movieArr, title, subTitle}) => {
 
     const scrollRef = useRef<HTMLDivElement>(null)
+
+    let interValID: NodeJS.Timer
+
+    const startScroll = (offset: number) => {
+        interValID = setInterval(() => scroll(offset), 100)
+    }
+
+    const endScroll = () => clearInterval(interValID)
+
+    useEffect(() => {
+
+        return () => {
+            endScroll()
+        }
+    }, [])
 
     const scroll = (scrollOffset: number) => {
         if (scrollRef.current !== null) {
@@ -23,6 +38,7 @@ const Carousel: React.FC<ICarouselProps> = ({movieArr, title, subTitle}) => {
         )
     })
 
+
     return (
         <S.Carousel>
             <h3>{title}</h3>
@@ -30,9 +46,12 @@ const Carousel: React.FC<ICarouselProps> = ({movieArr, title, subTitle}) => {
 
             <CarouselContainer ref={scrollRef}>
                 <div className="backwardContainer"
-                     onClick={() => {
-                         scroll(-100)
+                     onMouseDown={() => {
+                         startScroll(-50)
                      }}
+                     onMouseUp={() => endScroll()}
+                     onMouseLeave={() => endScroll()}
+
                 >
                     <img src={backward}
                          className={"backward"}
@@ -42,9 +61,11 @@ const Carousel: React.FC<ICarouselProps> = ({movieArr, title, subTitle}) => {
                 {movieArr.map( (item, index) => <MoviePreview key={item.id} movieInfo={item} index={index} /> )}
 
                 <div className="forwardContainer"
-                     onClick={() => {
-                         scroll(100)
+                     onMouseDown={() => {
+                         startScroll(50)
                      }}
+                     onMouseUp={() => endScroll()}
+                     onMouseLeave={() => endScroll()}
                 >
                     <img src={forward}
                          className={"forward"}
