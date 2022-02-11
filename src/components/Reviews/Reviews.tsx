@@ -1,26 +1,25 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import MyFirestore from "../../Firebase/Firestore";
 import * as S from "./Reviews.styles"
-import {doc, getDoc, setDoc} from "firebase/firestore";
-import {useSelector} from "react-redux";
+import {doc, getDoc} from "firebase/firestore";
+import {useDispatch, useSelector} from "react-redux";
 import ReviewItem from "../ReviewItem/ReviewItem";
 import {IAppState, IUserReview, TFirebaseReviewResponse} from "../../redux/appStore/appTypes";
+import {setCurrReviews, clearCurrReviews} from "../../redux/appStore/appActions";
 
 
 const Reviews: React.FC = () => {
 
-    const user = useSelector((state: IAppState) => state.user)
-    const movieData = useSelector((state: IAppState) => state)
-    const [reviews, setReviews] = useState<IUserReview[]>([])
+    const dispatch = useDispatch()
+    const appState = useSelector((state: IAppState) => state)
 
     const checkReviews = async() => {
-        if (user.user_id === "") return []
-        const reviewsRef = doc(MyFirestore, "allReviews", `${movieData.currMovie}`)
+        if (appState.user.user_id === "") return []
+        const reviewsRef = doc(MyFirestore, "allReviews", `${appState.currMovie.movie_id}`)
         const reviewSnapshot = await getDoc(reviewsRef)
 
         if (!reviewSnapshot.exists()) return []
 
-        // res (if successful) is always an object with 1 property 'movieReviews'
         const convertFireData = (res: any): TFirebaseReviewResponse => {
             return res.movieReviews
         }
@@ -30,11 +29,15 @@ const Reviews: React.FC = () => {
     useEffect(() => {
         checkReviews()
             .then( (res) => {
-                setReviews(res)
+                dispatch(setCurrReviews(res))
             })
             .catch( (e) => {
                 console.log(e)
             })
+
+        return () => {
+            dispatch(clearCurrReviews())
+        }
     }, [])
 
     return (
@@ -44,8 +47,7 @@ const Reviews: React.FC = () => {
                 Add A Review
             </button>
             <div className="reviewContainer">
-                {reviews.map((item: IUserReview, index: number) => <ReviewItem key={index} props={item} />)}
-
+                {appState.currReviews.map((item: IUserReview, index: number) => <ReviewItem key={item.reviewID} props={item} />)}
             </div>
         </S.Reviews>
     );

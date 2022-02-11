@@ -4,14 +4,16 @@ import {useSelector} from "react-redux";
 import * as S from "./ReviewItem.styles"
 
 const ReviewItem: React.FC<IReviewItemProps> = ({props}) => {
-    // This belongs in the area where a user ADDS a review, it is just here for the
-    // time being
-    const [allowEdit, setAllowEdit] = useState(false)
-    const user = useSelector((state: IAppState) => state.user)
-    const {isOwner, reviewHeadline, rating, reviewContent, _ownerRef} = props
+
+    const appState = useSelector((state: IAppState) => state)
+    const { isOwner, reviewHeadline, rating, reviewContent, _ownerRef} = props
+
+    const [canEdit, setCanEdit] = useState<boolean>(isOwner)
 
     const checkOwnership = () => {
-        if (_ownerRef === user.user_id) setAllowEdit(true)
+        if (_ownerRef === appState.user.user_id) {
+            setCanEdit(true)
+        }
     }
 
     useEffect(() => {
@@ -22,9 +24,10 @@ const ReviewItem: React.FC<IReviewItemProps> = ({props}) => {
         <S.ReviewItem>
             <div className="reviewHeader">
                 <p className={"reviewHeadline"}>{reviewHeadline}</p>
-                { allowEdit &&
-                    <button className={"editBtn"}>
-                        Edit Review</button> }
+                { canEdit && <button className={"editBtn"}>
+                    Edit Review
+                </button>}
+
             </div>
             {rating} /10
             <br/>

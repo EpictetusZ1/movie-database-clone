@@ -9,6 +9,7 @@ import starIcon from "../../assets/svgs/starIcon.svg"
 const WatchLater: React.FC<IWatchLaterProps> = ({props}) => {
 
     const {id, title, poster_path, overview, release_date, vote_rating} = props
+    const dispatch = useDispatch()
 
     const cleanTitle = (text: string): string => {
         let cleanText = text.replaceAll(" ", "-")
@@ -16,21 +17,26 @@ const WatchLater: React.FC<IWatchLaterProps> = ({props}) => {
         return cleanText
     }
 
-    const dispatch = useDispatch()
+    const handleClick = () => {
+        dispatch( setCurrMovie({
+            movie_id: id,
+            title: title,
+            poster: poster_path
+        }) )
+    }
+
+
     return (
         <S.WatchLater>
-            <Link to={`/movie/${cleanTitle(title)}`}>
+            <Link to={`/movie/${cleanTitle(title)}`}
+                  onClick={() => handleClick()}
+            >
                 <img src={`https://image.tmdb.org/t/p/w185${poster_path}`} alt={title} />
             </Link>
 
             <div className="infoContainer">
                 <Link to={`/movie/${cleanTitle(title)}`}
-                      onClick={() => dispatch( setCurrMovie({
-                          movie_id: id,
-                          title: title,
-                          poster: poster_path
-                      }
-                      ))}
+                      onClick={() => handleClick()}
                 >
                     <p className={"title"}>{title}</p>
                 </Link>

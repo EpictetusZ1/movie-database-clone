@@ -1,5 +1,6 @@
 export interface IUserReview {
     isOwner: boolean
+    reviewID: string
     reviewHeadline: string
     rating: number
     reviewContent: string
@@ -17,7 +18,6 @@ export interface IWatchLater {
 
 export type IUserState = {
     user_id: string
-    reviews: IUserReview[]
     watchLater: IWatchLater[]
 }
 
@@ -29,10 +29,11 @@ export interface ICurrMovie {
 
 export interface IAppState {
     currMovie: ICurrMovie
+    currReviews: IUserReview[]
+    newReview: IUserReview
     signedIn: boolean
     user: IUserState
     addReviewVisible: boolean
-    currReviews: IUserReview[]
 }
 
 export type TFirebaseReviewResponse = IUserReview[]

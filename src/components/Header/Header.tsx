@@ -53,11 +53,11 @@ const Header = () => {
 
     const ProfileLink: React.FC = () => {
         return auth.currentUser && (
-                <S.NavItem>
-                    <Link to={"/profile"}>
+            <S.NavItem>
+                <Link to={"/profile"}>
                     <p>Profile</p>
-                    </Link>
-                </S.NavItem>
+                </Link>
+            </S.NavItem>
         )
     }
 

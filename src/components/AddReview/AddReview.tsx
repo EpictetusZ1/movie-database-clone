@@ -1,18 +1,43 @@
 import React, {useRef, useState} from 'react';
 import * as S from "./AddReview.styles"
 import {useSelector, useDispatch} from "react-redux";
-import {IAppState} from "../../redux/appStore/appTypes";
+import {IAppState, IUserReview} from "../../redux/appStore/appTypes";
 import emptyStar from "../../assets/svgs/emptyStar.svg"
 import blueStar from "../../assets/svgs/blueStar.svg"
+import {
+    setMovieReviewsFire,
+    toggleShowReview
+} from "../../redux/appStore/appActions";
+
 
 const AddReview = () => {
-
-    const movieData = useSelector((state: IAppState) => state.currMovie)
+    const appState = useSelector((state: IAppState) => state)
     const dispatch = useDispatch()
+
     const [mousePos, setMousePos] = useState<number>(0)
-    const [rating, setRating] = useState<number>(0)
+
+    const initFormVal: IUserReview = {
+        isOwner: false,
+        reviewID: "",
+        reviewHeadline: "",
+        rating: 1,
+        reviewContent: "",
+        _ownerRef: appState.user.user_id
+    }
+
+    const [formPayload, setFormPayload] = useState<IUserReview>(initFormVal)
+
+    const image = `https://image.tmdb.org/t/p/w154/${appState.currMovie.poster}`
 
     const reviewRef = useRef<HTMLDivElement>(null)
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+        e.preventDefault()
+        setFormPayload(prevState => ({
+            ...prevState,
+            [e.target.name]: e.target.value
+        }))
+    }
 
     const getCoords = (e: React.MouseEvent) => {
         if (reviewRef.current) {
@@ -26,7 +51,11 @@ const AddReview = () => {
 
     const correlateRatingVal = (e: React.MouseEvent<HTMLImageElement>) => {
         const value = parseInt(e.currentTarget.alt)
-        setRating(value)
+        setFormPayload(prevState => ({
+            ...prevState,
+            rating: value
+        }))
+
     }
 
     // 'limit' is the relative coord for the container at which to display the background as blue
@@ -35,17 +64,32 @@ const AddReview = () => {
         return emptyStar
     }
 
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+
+        dispatch(setMovieReviewsFire(formPayload))
+        dispatch(toggleShowReview())
+    }
+
     return (
         <S.ScreenOverlay>
             <S.AddReview>
-                <div className="addHeader">
-                    <p>{movieData.title}</p>
-                    <hr className={"hrSmall"}/>
-                    <p>Add a Review</p>
-                    <hr className={"hrBold"}/>
-                    <p className="yourReview">
-                        YOUR RATING
-                    </p>
+                <div className="movieInfoWrapper">
+                    <img src={image} alt={appState.currMovie.title} />
+                    <div className="addHeader">
+                        <p>{appState.currMovie.title}</p>
+                        <p className={"closeAdd"}
+                           onClick={() => dispatch(toggleShowReview())}
+                        >
+                            X
+                        </p>
+                        <hr className={"hrSmall"}/>
+                        <p>Add a Review</p>
+                        <hr className={"hrBold"}/>
+                        <p className="yourRating">
+                            YOUR RATING
+                        </p>
+                    </div>
                 </div>
 
                 <div className="yourRatingCont">
@@ -80,12 +124,37 @@ const AddReview = () => {
                         <img src={dynamicRatingBg(770)} alt="9"
                              onClick={(e) => correlateRatingVal(e)}
                         />
-                        <img src={dynamicRatingBg(870)} alt="10"
+                        <img src={dynamicRatingBg(850)} alt="10"
                              onClick={(e) => correlateRatingVal(e)}
                         />
-                        <p>{rating}</p>
+                        <p>{formPayload.rating}</p>
                     </S.ReviewSliderContainer>
                 </div>
+                <div className="yourReview">
+
+                    <p>YOUR REVIEW</p>
+                </div>
+
+                    <form autoComplete={"off"}
+                          onSubmit={(e) => handleSubmit(e)}
+                    >
+                        <input type="text"
+                               name="reviewHeadline"
+                               value={formPayload.reviewHeadline}
+                               required={true}
+                               onChange={handleChange}
+                               placeholder={"Write a headline for your review here"}
+                        />
+                        <textarea
+                            className={"reviewBodyContent"}
+                            name="reviewContent"
+                            value={formPayload.reviewContent}
+                            required={true}
+                            onChange={(e) => handleChange(e)}
+                            placeholder={"Write your review here"}
+                        />
+                        <button type="submit" className="submitBtn">Submit</button>
+                    </form>
             </S.AddReview>
         </S.ScreenOverlay>
     );

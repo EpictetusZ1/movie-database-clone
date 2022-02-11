@@ -27,7 +27,6 @@ const MoviePage: React.FC = () => {
                 vote_rating: r.vote_average
             }
         })
-
     }
 
     useEffect(() => {
@@ -43,7 +42,6 @@ const MoviePage: React.FC = () => {
     // Get primary movie info from API 1: The Movie Database API
     const getData = async (): Promise<ISingleMovieRoot> => {
         const response: Response = await fetch(`https://api.themoviedb.org/3/movie/${movieData}?api_key=${process.env.REACT_APP_TMBD_KEY}`)
-
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
         return response.json()

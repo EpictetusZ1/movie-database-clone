@@ -1,18 +1,20 @@
 import {
     ActionTypes,
-    ADD_USER_REVIEW,
     ADD_USER_WATCH_LATER,
+    CLEAR_CURR_REVIEWS,
     MAP_DB_STATE_TO_REDUX,
     REMOVE_WATCH_LATER_ITEM,
     SET_CURR_MOVIE,
-    SET_CURR_MOVIE_ID,
+    SET_CURR_REVIEWS,
+    SET_MOVIE_REVIEWS_FIRE,
     SET_SIGNED_OUT,
     SET_USER_DATA,
-    SET_USER_REVIEWS,
     SET_USER_WATCH_LATER,
     TOGGLE_SHOW_REVIEW
 } from "./appActions";
-import {IAppState, IWatchLater} from "./appTypes";
+import {IAppState, IUserReview, IWatchLater} from "./appTypes";
+import {doc, setDoc} from "firebase/firestore";
+import MyFirestore from "../../Firebase/Firestore";
 
 const initialState: IAppState = {
     currMovie: {
@@ -21,11 +23,18 @@ const initialState: IAppState = {
         poster: ""
     },
     currReviews: [],
+    newReview: {
+        isOwner: false,
+        reviewID: "",
+        reviewHeadline: "",
+        rating: 0,
+        reviewContent: "",
+        _ownerRef: ""
+    },
     signedIn: false,
     addReviewVisible: false,
     user: {
         user_id: "guest",
-        reviews: [],
         watchLater: []
     }
 }
@@ -43,14 +52,6 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
                     poster: action.payload.poster
                 }
             }
-        case SET_CURR_MOVIE_ID:
-            return {
-                ...state,
-                currMovie: {
-                    ...state.currMovie,
-                    movie_id: action.payload
-                }
-            }
         case SET_USER_DATA:
             return {
                 ...state,
@@ -62,13 +63,35 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
             }
         case SET_SIGNED_OUT:
             return initialState
-        case SET_USER_REVIEWS:
+        case SET_CURR_REVIEWS:
             return {
                 ...state,
-                user: {
-                    ...state.user,
-                    reviews: action.payload
+                currReviews: state.currReviews.concat(action.payload)
+            }
+        case CLEAR_CURR_REVIEWS:
+            return {
+                ...state,
+                currReviews: []
+            }
+        case SET_MOVIE_REVIEWS_FIRE:
+            const addReviewID = () => {
+                return {
+                    ...action.payload,
+                    reviewID: "id_" + Math.random().toString(12).slice(3)
                 }
+            }
+
+            const updateFireReviews = async() => {
+                const reviewsRef = doc(MyFirestore, "allReviews", `${state.currMovie.movie_id}`)
+                await setDoc(reviewsRef,{
+                    movieReviews: state.currReviews.concat(addReviewID())
+                })
+            }
+
+            updateFireReviews()
+            return {
+                ...state,
+                currReviews: state.currReviews.concat(action.payload)
             }
         case SET_USER_WATCH_LATER:
             return {
@@ -84,14 +107,6 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
                 user: {
                     ...state.user,
                     watchLater: state.user.watchLater.concat(action.payload)
-                }
-            }
-        case ADD_USER_REVIEW:
-            return {
-                ...state,
-                user: {
-                    ...state.user,
-                    reviews: state.user.reviews.concat(action.payload)
                 }
             }
         case MAP_DB_STATE_TO_REDUX:

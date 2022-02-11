@@ -107,6 +107,7 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
                             YOUR RATING
                         </p>
                         <div className="personalRatingContainer"
+                            //TODO: Add conditional check to make sure user is logged in before allowing review
                              onClick={() => dispatch(toggleShowReview())}
                         >
                             <img src={starIconBlue} alt="add your rating"/>
