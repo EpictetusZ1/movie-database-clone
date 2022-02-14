@@ -62,6 +62,10 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
                 user: {
                     ...state.user,
                     user_id: action.payload
+                },
+                newReview: {
+                    ...state.newReview,
+                    _ownerRef: action.payload
                 }
             }
         case SET_SIGNED_OUT:
@@ -95,7 +99,14 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
             return {
                 ...state,
                 currReviews: state.currReviews.concat(action.payload),
-                newReview: initNewReview
+                newReview: {
+                    ...state.newReview,
+                    isOwner: false,
+                    reviewID: "",
+                    reviewHeadline: "",
+                    rating: 1,
+                    reviewContent: "",
+                }
             }
         case UPDATE_REVIEW:
             const removeReview = state.currReviews.filter((item: IUserReview) => item.reviewID !== action.payload.reviewID)

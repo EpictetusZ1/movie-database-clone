@@ -18,6 +18,14 @@ const AddReview = () => {
 
     const [mousePos, setMousePos] = useState<number>(0)
 
+    // const initFormVal: IUserReview = {
+    //     isOwner: false,
+    //     reviewID: "",
+    //     reviewHeadline: "",
+    //     rating: 1,
+    //     reviewContent: "",
+    //     _ownerRef: appState.user.user_id
+    // }
 
     const [formPayload, setFormPayload] = useState<IUserReview>(appState.newReview)
 
@@ -59,6 +67,7 @@ const AddReview = () => {
     }
 
     const handleSubmit = (e: React.FormEvent) => {
+        console.log(formPayload)
         e.preventDefault()
 
         dispatch(setMovieReviewsFire(formPayload))
