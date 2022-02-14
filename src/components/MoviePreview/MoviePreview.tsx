@@ -16,7 +16,7 @@ import {useDispatch} from "react-redux";
 import {addUserWatchLater, setCurrMovie} from "../../redux/appStore/appActions";
 import {Link} from "react-router-dom";
 
-const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
+const MoviePreview: React.FC<IPreviewProps> = ({movieInfo}) => {
 
     const cleanTitle = (text: string): string => {
         let cleanText = text.replaceAll(" ", "-")
