@@ -1,11 +1,18 @@
+// React & Components
 import React, {useEffect} from 'react';
-import MyFirestore from "../../Firebase/Firestore";
-import * as S from "./Reviews.styles"
-import {doc, getDoc} from "firebase/firestore";
-import {useDispatch, useSelector} from "react-redux";
 import ReviewItem from "../ReviewItem/ReviewItem";
+
+// Styles
+import * as S from "./Reviews.styles"
+
+// Firestore
+import MyFirestore from "../../firebase/Firestore";
+import {doc, getDoc} from "firebase/firestore";
+
+// Redux & Types
+import {useDispatch, useSelector} from "react-redux";
 import {IAppState, IUserReview, TFirebaseReviewResponse} from "../../redux/appStore/appTypes";
-import {setCurrReviews, clearCurrReviews} from "../../redux/appStore/appActions";
+import {setCurrReviews, clearCurrReviews, toggleShowReview} from "../../redux/appStore/appActions";
 
 
 const Reviews: React.FC = () => {
@@ -42,12 +49,17 @@ const Reviews: React.FC = () => {
 
     return (
         <S.Reviews>
-            <h2>User Reviews</h2>
-            <button className={"addReview"}>
-                Add A Review
-            </button>
+            <div className="allReviewHeader">
+                <h2>User Reviews:</h2>
+                <button className={"addReview"}
+                        onClick={() => dispatch(toggleShowReview())}
+                >
+                    Add A Review
+                </button>
+            </div>
+
             <div className="reviewContainer">
-                {appState.currReviews.map((item: IUserReview, index: number) => <ReviewItem key={item.reviewID} props={item} />)}
+                {appState.currReviews.map((item: IUserReview) => <ReviewItem key={item.reviewID} props={item} />)}
             </div>
         </S.Reviews>
     );

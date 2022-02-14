@@ -1,10 +1,16 @@
+// React
 import React from 'react';
+
+// Styles * Assets
 import * as S from "./WatchLater.styles"
-import {IWatchLaterProps} from "../../types/ProfilePage.types";
-import {Link} from "react-router-dom";
+import starIcon from "../../assets/svgs/starIcon.svg"
+
+// Redux, Types & React Router DOM
 import {removeWatchLaterItem, setCurrMovie} from "../../redux/appStore/appActions";
 import {useDispatch} from "react-redux";
-import starIcon from "../../assets/svgs/starIcon.svg"
+import {IWatchLaterProps} from "../../types/ProfilePage.types";
+import {Link} from "react-router-dom";
+
 
 const WatchLater: React.FC<IWatchLaterProps> = ({props}) => {
 
@@ -24,7 +30,6 @@ const WatchLater: React.FC<IWatchLaterProps> = ({props}) => {
             poster: poster_path
         }) )
     }
-
 
     return (
         <S.WatchLater>

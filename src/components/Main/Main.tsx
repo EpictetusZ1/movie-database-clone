@@ -2,17 +2,19 @@
 import React, {useEffect, useState} from 'react';
 import Carousel from "../Carousel/Carousel";
 
+// Styles
 import * as S from "./Main.styles"
-import {useDispatch} from "react-redux";
-import { IMovieArray} from "../../types/Main.types";
+
+// Types
+import {IMovieArray} from "../../types/Main.types";
 
 const Main: React.FC = () => {
 
-    const dispatchMovie = useDispatch()
     const [popularMovies, setPopularMovies] = useState<IMovieArray[]>([])
     const [topMovies, setTopMovies] = useState<IMovieArray[]>([])
 
     useEffect(() => {
+
         Promise.all([getPopularMovies(), getTopMovies()])
             .then((values) => {
                 setPopularMovies(values[0].results)
@@ -21,13 +23,13 @@ const Main: React.FC = () => {
             .catch((e) => {
                 console.log(e)
             })
+
     }, [])
 
 
     // Array for 1st instance of Carousel.tsx
     const getPopularMovies = async () => {
         const response: Response = await fetch(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMBD_KEY}`)
-
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
         return response.json()
@@ -36,7 +38,6 @@ const Main: React.FC = () => {
     // Array for 2nd instance of Carousel.tsx
     const getTopMovies = async () => {
         const response: Response = await fetch(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.REACT_APP_TMBD_KEY}`)
-
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`)
 
         return response.json()

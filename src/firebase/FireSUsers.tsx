@@ -1,8 +1,13 @@
+// React
 import React, {useEffect} from 'react';
+
+// Redux & Types
 import {useDispatch, useSelector} from "react-redux";
 import {IAppState} from "../redux/appStore/appTypes";
-import {doc, getDoc, setDoc, updateDoc, collection} from "firebase/firestore";
 import {mapDBStateToRedux} from "../redux/appStore/appActions";
+
+// Firebase
+import {doc, getDoc, setDoc, updateDoc, collection} from "firebase/firestore";
 import MyFirestore from "./Firestore";
 
 
@@ -40,8 +45,8 @@ const FireSUsers = () => {
 
     const updateUserInFirebase = async () => {
         if (!isSignedIn) return
-        const usersRef = collection(MyFirestore, "users") // COLLECTION
-        const userRef = doc(usersRef, `${user.user_id}`);
+        const usersRef = collection(MyFirestore, "users")
+        const userRef = doc(usersRef, `${user.user_id}`)
 
         await updateDoc(userRef, {
             watchLater: watchLater

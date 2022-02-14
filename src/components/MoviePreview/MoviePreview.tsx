@@ -1,15 +1,20 @@
+// React
 import React from 'react';
-import {Link} from "react-router-dom";
+
+// Styles & Assets
 import * as S from "./MoviePreview.styles"
-import {IPreviewProps} from "../../types/Main.types";
 import starIcon from "../../assets/svgs/starIcon.svg"
 import ribbon from "../../assets/svgs/ribbonIcon.svg"
 import addIcon from "../../assets/svgs/addIcon.svg"
 import addIconBlue from "../../assets/svgs/addIconBlue.svg"
 import trailerIcon from "../../assets/svgs/trailerIcon.svg"
 import infoIcon from "../../assets/svgs/infoIcon.svg"
+
+// Redux, Types & React Router DOM
+import {IPreviewProps} from "../../types/Main.types";
 import {useDispatch} from "react-redux";
 import {addUserWatchLater, setCurrMovie} from "../../redux/appStore/appActions";
+import {Link} from "react-router-dom";
 
 const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
 
@@ -50,7 +55,6 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
                     }) )
                 }}
             >
-
                 <Link to={`movie/${cleanedTitle}`}>
                     <img src={image} alt={movieInfo.title}/>
                 </Link>
@@ -86,7 +90,6 @@ const MoviePreview: React.FC<IPreviewProps> = ({movieInfo, index}) => {
                             <img src={infoIcon} alt="movie information"/>
                         </div>
                     </S.ActionsContainer>
-
                 </div>
             </S.MoviePreview>
         </S.PreviewWrapper>

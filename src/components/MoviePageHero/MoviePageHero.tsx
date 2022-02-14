@@ -1,11 +1,16 @@
+// React
 import React, {useEffect, useState} from 'react';
+
+// Styles & Assets
 import * as S from "./MoviePageHero.styles"
-import {IHeroProps, ISecondaryData, ITrailerAPIRespRoot, ITrailerItem} from "../../types/MoviePage.types";
 import ticketIcon from "../../assets/svgs/ticketIcon.svg";
 import plusIcon from "../../assets/svgs/addIcon.svg";
 import starIcon from "../../assets/svgs/starIcon.svg"
 import starIconBlue from "../../assets/svgs/starIconBlue.svg"
 import metaCriticLogo from "../../assets/svgs/MetacriticLogo.svg"
+
+// Redux & Types
+import {IHeroProps, ISecondaryData, ITrailerAPIRespRoot, ITrailerItem} from "../../types/MoviePage.types";
 import {useDispatch} from "react-redux";
 import {toggleShowReview} from "../../redux/appStore/appActions";
 import {addUserWatchLater} from "../../redux/appStore/appActions";
@@ -47,6 +52,7 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
         return response.json()
     }
 
+    // Handles nuance with API not having consistent video names
     const getOfficialTrailer = (data: ITrailerAPIRespRoot) => {
         const checkObjKeys = () => {
             const [official] = data.results.filter((item: ITrailerItem) => item.name === "Official Trailer")
@@ -107,7 +113,6 @@ const MoviePageHero: React.FC<IHeroProps> = ({props}) => {
                             YOUR RATING
                         </p>
                         <div className="personalRatingContainer"
-                            //TODO: Add conditional check to make sure user is logged in before allowing review
                              onClick={() => dispatch(toggleShowReview())}
                         >
                             <img src={starIconBlue} alt="add your rating"/>

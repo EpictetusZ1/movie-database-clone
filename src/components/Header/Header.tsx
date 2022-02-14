@@ -1,11 +1,19 @@
+// React
 import React, {useEffect} from 'react';
-import iconSmall from "../../assets/svgs/image-icon-small.svg";
+
+// Styles & assets
 import * as S from  "./Header.styles"
-import { Link } from "react-router-dom";
+import iconSmall from "../../assets/svgs/image-icon-small.svg";
+
+// Redux & Firebase
 import {useDispatch} from "react-redux";
 import {setUserData, setSignedOut} from "../../redux/appStore/appActions";
 import {getAuth, GoogleAuthProvider, signInWithPopup} from "firebase/auth";
 import {useAuthState} from "react-firebase-hooks/auth";
+
+// React Router DOM
+import { Link } from "react-router-dom";
+
 
 const Header = () => {
 
@@ -44,7 +52,7 @@ const Header = () => {
         return auth.currentUser && (
             <S.NavItem onClick={() => {
                 auth.signOut()
-                    .then( () => dispatch( setSignedOut()) )
+                    .then(() => dispatch( setSignedOut()))
             }}>
                 <p>Sign Out</p>
             </S.NavItem>
@@ -61,14 +69,6 @@ const Header = () => {
         )
     }
 
-    const WatchList: React.FC = () => {
-        return auth.currentUser && (
-            <S.NavItem>
-                <p>Watchlist</p>
-            </S.NavItem>
-        )
-    }
-
     return (
         <S.Header>
             <div className="navInner">
@@ -81,7 +81,6 @@ const Header = () => {
                 <div className="navItems">
                     { user ? <ProfileLink /> : <SignIn/> }
                     <SignOut />
-                    <WatchList />
                 </div>
             </div>
         </S.Header>

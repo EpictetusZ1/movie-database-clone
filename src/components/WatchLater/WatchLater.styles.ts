@@ -72,6 +72,4 @@ export const WatchLater = styled.div`
       background-color: #bdbdbd;
     }
   }
-
-
 `

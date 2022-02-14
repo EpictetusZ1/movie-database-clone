@@ -10,11 +10,21 @@ import {
     SET_SIGNED_OUT,
     SET_USER_DATA,
     SET_USER_WATCH_LATER,
-    TOGGLE_SHOW_REVIEW
+    TOGGLE_SHOW_REVIEW,
+    UPDATE_REVIEW
 } from "./appActions";
 import {IAppState, IUserReview, IWatchLater} from "./appTypes";
 import {doc, setDoc} from "firebase/firestore";
-import MyFirestore from "../../Firebase/Firestore";
+import MyFirestore from "../../firebase/Firestore";
+
+const initNewReview = {
+        isOwner: false,
+        reviewID: "",
+        reviewHeadline: "",
+        rating: 1,
+        reviewContent: "",
+        _ownerRef: ""
+}
 
 const initialState: IAppState = {
     currMovie: {
@@ -23,14 +33,7 @@ const initialState: IAppState = {
         poster: ""
     },
     currReviews: [],
-    newReview: {
-        isOwner: false,
-        reviewID: "",
-        reviewHeadline: "",
-        rating: 0,
-        reviewContent: "",
-        _ownerRef: ""
-    },
+    newReview: initNewReview,
     signedIn: false,
     addReviewVisible: false,
     user: {
@@ -91,7 +94,15 @@ const appReducer = (state: IAppState = initialState, action: ActionTypes ) => {
             updateFireReviews()
             return {
                 ...state,
-                currReviews: state.currReviews.concat(action.payload)
+                currReviews: state.currReviews.concat(action.payload),
+                newReview: initNewReview
+            }
+        case UPDATE_REVIEW:
+            const removeReview = state.currReviews.filter((item: IUserReview) => item.reviewID !== action.payload.reviewID)
+            return {
+                ...state,
+                currReviews: removeReview,
+                newReview: action.payload
             }
         case SET_USER_WATCH_LATER:
             return {

@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const HeroHeader = styled.div`
-  
   display: inline-flex;
   justify-content: space-between;
   align-items: center;
@@ -12,7 +11,9 @@ export const HeroHeader = styled.div`
   }
 
   .titleContainer {
+    
     ul {
+      
       li:not(:first-child) {
         :before{
           opacity: 0.7;
@@ -48,9 +49,11 @@ export const HeroHeader = styled.div`
   
   .rating {
     width: 25%;
+    
     > img {
       padding: 5px 10px 0 0 ;
     }
+    
   }
   
   .popularCat {
@@ -122,7 +125,6 @@ export const MoviePageHero = styled.div`
     > img {
       max-height: 100%;
     }
-
   }
 
   iframe {
@@ -146,7 +148,6 @@ export const MoviePageHero = styled.div`
       padding: 6px 10px;
       margin: 0 5px;
     }
-
   }
 
   .heroBottomCont {
@@ -256,6 +257,4 @@ export const SecondaryData = styled.div`
       cursor: pointer;
     }
   }
-
-
 `

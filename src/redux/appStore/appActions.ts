@@ -11,6 +11,7 @@ export const REMOVE_WATCH_LATER_ITEM = "REMOVE_WATCH_LATER_ITEM"
 export const TOGGLE_SHOW_REVIEW = "SHOW_ADD_REVIEW"
 export const SET_MOVIE_REVIEWS_FIRE = "SET_MOVIE_REVIEWS_FIRE"
 export const CLEAR_CURR_REVIEWS = "CLEAR_CURR_REVIEWS"
+export const UPDATE_REVIEW = "UPDATE_REVIEW"
 
 
 export type ActionTypes =
@@ -28,6 +29,8 @@ export type ActionTypes =
     | { type: typeof TOGGLE_SHOW_REVIEW }
     | { type: typeof SET_MOVIE_REVIEWS_FIRE; payload: IUserReview }
     | { type: typeof CLEAR_CURR_REVIEWS;}
+    | { type: typeof UPDATE_REVIEW; payload: IUserReview }
+
 
 
 export const setCurrMovie = (currMovie: ICurrMovie): ActionTypes => ({
@@ -55,6 +58,11 @@ export const clearCurrReviews = (): ActionTypes => ({
 
 export const setMovieReviewsFire = (reviewData: IUserReview): ActionTypes => ({
     type: SET_MOVIE_REVIEWS_FIRE,
+    payload: reviewData
+})
+
+export const updateReview = (reviewData: IUserReview): ActionTypes => ({
+    type: UPDATE_REVIEW,
     payload: reviewData
 })
 

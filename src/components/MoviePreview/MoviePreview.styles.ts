@@ -20,7 +20,6 @@ export const PreviewWrapper = styled.div`
     grid-column: span 4;
     margin: 0 2em 0 0;
   }
-
   
   .watchListAdd {
     position: absolute;

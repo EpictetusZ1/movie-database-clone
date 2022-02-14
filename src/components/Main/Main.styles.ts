@@ -12,6 +12,4 @@ export const Main = styled.div`
     font-size: 2rem;
     margin-right: 50%;
   }
-  
-  
 `

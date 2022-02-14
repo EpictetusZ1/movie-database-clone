@@ -1,11 +1,16 @@
+// React & Components
 import React, {useEffect, useState} from 'react';
-import * as S from "./MoviePage.styles"
-import { ISingleMovieRoot} from "../../types/Main.types";
-import { useSelector} from "react-redux";
-import {IHeroProps} from "../../types/MoviePage.types";
 import MoviePageHero from "../MoviePageHero/MoviePageHero";
-import {IAppState} from "../../redux/appStore/appTypes";
 import Reviews from "../Reviews/Reviews";
+
+// Styles
+import * as S from "./MoviePage.styles"
+
+// Redux & Types
+import {useSelector} from "react-redux";
+import {ISingleMovieRoot} from "../../types/Main.types";
+import {IHeroProps} from "../../types/MoviePage.types";
+import {IAppState} from "../../redux/appStore/appTypes";
 
 
 const MoviePage: React.FC = () => {
@@ -55,7 +60,7 @@ const MoviePage: React.FC = () => {
                 </S.MainContent>
             </S.MovieAboveFold>
             <div className="additionalDetails">
-                <h1>More Details:</h1>
+                <h1>More</h1>
                 <Reviews />
             </div>
         </S.MoviePage>

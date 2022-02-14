@@ -44,7 +44,7 @@ export const Carousel = styled.div`
 
 .forwardContainer {
   position: sticky;
-  right: 0;
+  right: 2px;
   top: 25%;
   height: 66px;
   width: 50px;
@@ -63,8 +63,9 @@ export const Carousel = styled.div`
 
   .forward {
     position: absolute;
-    top: calc(50% - 12px); // Height of icon
+    top: calc(50% - 12px); // 1/2 Height of icon
     right: calc(50% - 12px);
+    user-select: none;
   }
 
 }
@@ -92,8 +93,9 @@ export const Carousel = styled.div`
 
   .backward {
     position: absolute;
-    top: calc(50% - 12px); // Height of icon
+    top: calc(50% - 12px); // 1/2 Height of icon
     left: calc(50% - 12px);
+    user-select: none;
   }
 
 `

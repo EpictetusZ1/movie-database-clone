@@ -1,13 +1,15 @@
+// React
 import React, {useRef, useState} from 'react';
+
+// Styles * Assets
 import * as S from "./AddReview.styles"
-import {useSelector, useDispatch} from "react-redux";
-import {IAppState, IUserReview} from "../../redux/appStore/appTypes";
 import emptyStar from "../../assets/svgs/emptyStar.svg"
 import blueStar from "../../assets/svgs/blueStar.svg"
-import {
-    setMovieReviewsFire,
-    toggleShowReview
-} from "../../redux/appStore/appActions";
+
+// Redux & types
+import {useSelector, useDispatch} from "react-redux";
+import { setMovieReviewsFire, toggleShowReview } from "../../redux/appStore/appActions";
+import {IAppState, IUserReview} from "../../redux/appStore/appTypes";
 
 
 const AddReview = () => {
@@ -16,16 +18,8 @@ const AddReview = () => {
 
     const [mousePos, setMousePos] = useState<number>(0)
 
-    const initFormVal: IUserReview = {
-        isOwner: false,
-        reviewID: "",
-        reviewHeadline: "",
-        rating: 1,
-        reviewContent: "",
-        _ownerRef: appState.user.user_id
-    }
 
-    const [formPayload, setFormPayload] = useState<IUserReview>(initFormVal)
+    const [formPayload, setFormPayload] = useState<IUserReview>(appState.newReview)
 
     const image = `https://image.tmdb.org/t/p/w154/${appState.currMovie.poster}`
 

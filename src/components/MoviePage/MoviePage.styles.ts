@@ -18,12 +18,13 @@ export const MoviePage = styled.div`
   }
 
   .additionalDetails {
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 2rem;
     min-height: 50vh;
     background-color: #E3E2DD;
     
      > h1 {
        color: #000;
+       margin: 0.25rem 0;
      }
   }
 `
@@ -37,7 +38,6 @@ export const MovieAboveFold = styled.div`
 `
 
 export const MainContent = styled.div`
-  // Add media query for content size restriction
   width: 70vw;
   max-width: 90vw;
   height: auto;
