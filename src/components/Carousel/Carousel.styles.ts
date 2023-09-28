@@ -20,8 +20,7 @@ export const Carousel = styled.div`
     font-size: 1.8rem;
     margin: 24px 0 24px 0;
   }
-  
-}
+
 
 .carouselContainer {
   position: relative;
@@ -97,5 +96,5 @@ export const Carousel = styled.div`
     left: calc(50% - 12px);
     user-select: none;
   }
-
+}
 `
